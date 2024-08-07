@@ -81,7 +81,7 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { userName, cardNo, deckNo, setDeckNo, setCardNo, toggleAddDeck } = React.useContext(DataContext);
+  const { userName, cardNo, deckNo, setDeckNo, setCardNo, toggleAddDeck,setShowAlert } = React.useContext(DataContext);
 
   const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -108,6 +108,7 @@ export default function Dashboard() {
     setAnchorEl(null);
   };
   const handleLogout = () => {
+    setShowAlert(false);
     sessionStorage.clear();
     navigate("/");
     handleProfileMenuClose();
