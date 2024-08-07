@@ -78,9 +78,7 @@ function SignInSide() {
         setShowAlert(true);
         setUserEmail("");
         setPassword("");
-        setTimeout(()=>{
-          navigate("/home");   
-        },2000);
+        navigate("/home");  
        
       } 
       else{
