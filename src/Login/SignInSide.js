@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import TTImage from '../assets/TT.jpg';
 import DataContext from "../context/DataContext.js";
 import axios from "axios";
+import { backendUrl } from "../BackEndURL.js";
 
 function SignInSide() {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ function SignInSide() {
         email:userEmail,
         password
       }
-      const response = await axios.post('http://localhost:5001/', credentials);
+      const response = await axios.post(`${backendUrl}`, credentials);
 //console.log(response);
       if (response?.data?.status === "exists") {
         setUserName(response.data.user.uname);
