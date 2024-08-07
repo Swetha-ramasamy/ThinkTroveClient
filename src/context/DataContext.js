@@ -17,8 +17,8 @@ export const DataProvider = ({children}) => {
     const [decks,setDecks] = useState([]);
     const [cards,setCards] = useState([]);
     const [alertMessage, setAlertMessage] = useState("");
-  const [alertSeverity, setAlertSeverity] = useState("success");
-  const [showAlert, setShowAlert] = useState(false);
+    const [alertSeverity, setAlertSeverity] = useState("success");
+    const [showAlert, setShowAlert] = useState(false);
     // useEffect(()=>{
     //   const fetchDetails=async()=>{
     //     const id=sessionStorage.getItem('userId');

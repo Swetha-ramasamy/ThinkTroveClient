@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -82,11 +82,14 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
 export default function Dashboard() {
   const navigate = useNavigate();
   const { userName, cardNo, deckNo, setDeckNo, setCardNo, toggleAddDeck,setShowAlert } = React.useContext(DataContext);
-
   const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   
+useEffect(()=>{
+  setShowAlert(false);
+},[])
+
   const setValues = (deckNo, cardNo) => {
     setDeckNo(deckNo);
     setCardNo(cardNo);
@@ -108,7 +111,7 @@ export default function Dashboard() {
     setAnchorEl(null);
   };
   const handleLogout = () => {
-    setShowAlert(false);
+    
     sessionStorage.clear();
     navigate("/");
     handleProfileMenuClose();
