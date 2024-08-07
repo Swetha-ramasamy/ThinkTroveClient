@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import { updateCard } from '../api';
+import DataContext from '../context/DataContext';
 
 const UpdateCardDialog = ({ open, onClose, card, setCards }) => {
   const [cardName, setCardName] = useState('');
   const [hint, setHint] = useState('');
   const [answer, setAnswer] = useState('');
+  const { 
+    setAlertMessage,
+    setAlertSeverity,
+    setShowAlert } = useContext(DataContext);
 
   useEffect(() => {
     if (card) {
@@ -16,13 +21,35 @@ const UpdateCardDialog = ({ open, onClose, card, setCards }) => {
   }, [card]);
 
   const handleSave = async () => {
-    const updatedCard = { ...card, cardName, hint, answer };
-    await updateCard(updatedCard);
-    setCards(prevCards => ({
-      ...prevCards,
-      [card.deckId]: prevCards[card.deckId].map(c => c._id === updatedCard._id ? updatedCard : c)
-    }));
-    onClose();
+    try {
+      const obj = {
+        cardId: card._id,
+        ...(cardName !== card.cardName && { cardName }),
+        ...(hint !== card.hint && { hint }),
+        ...(answer !== card.ans && { ans: answer })
+      };
+
+      const response = await updateCard(obj);
+      if(response.status=="cardUpdated"){
+        const updatedCard = { ...card, ...obj };
+
+        setCards(prevCards => ({
+          ...prevCards,
+          [card.deckId]: prevCards[card.deckId].map(c => c._id === updatedCard._id ? updatedCard : c)
+        }));
+  
+        onClose();
+        setAlertMessage("Successfully Updated");
+        setAlertSeverity("success");
+        setShowAlert(true);
+      }
+     
+    } catch (e) {
+      console.error(e);
+      setAlertMessage("Update Failed");
+      setAlertSeverity("error");
+      setShowAlert(true);
+    }
   };
 
   return (
