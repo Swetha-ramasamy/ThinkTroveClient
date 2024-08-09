@@ -1,7 +1,7 @@
 # ThinkTrove
 
 ## Tools used: Nodejs, expressjs, cors, mongoose, mongodb, joi , nodemon (back end) 
-repo link for backend: 
+repo link for backend: https://github.com/Swetha-ramasamy/ThinkThroveServer.git
 
 ## Tools used: Reactjs, Material UI 
 
